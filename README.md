@@ -19,22 +19,22 @@ Out of the box, the current solution uses a SQL Lite data source. The **BooksCon
 #### Task: Pagination 
 Return 10 results per page/request at the API and add pagination controls to the result set in the client UI 
 
-**Added Pagination using "b-pagination" and paging through the api methods in the back ground. Created a class to pass the parameters to filter and paginate the results in the backend.**
+***Added Pagination using "b-pagination" and paging through the api methods in the back ground. Created a class to pass the parameters to filter and paginate the results in the backend.***
 
 #### Task: Search  
 Create a search box control to filter/search the data store fields title and descr int the client UI, and the supporting functionality in the API 
 
-**Added a search box and when keywords are entered it will add the search terms to book parameters which is used in turn for searching book results.**
+***Added a search box and when keywords are entered it will add the search terms to book parameters which is used in turn for searching book results.***
 
 #### Task: Edit Book 
 On the book detail page, introduce a toggle into the client UI to toggle from read-only mode to edit mode.  Provide functionality in the API to support book detail edits/updates. 
 
-**Reused the details page to act as the edit page. The detail page felt unneccesary as all the information regarding the book is on the homepage. This will save the book detials along with the thumbnail url which has a preview on the page.**
+***Reused the details page to act as the edit page. The detail page felt unneccesary as all the information regarding the book is on the homepage. This will save the book detials along with the thumbnail url which has a preview on the page.***
 
 #### Bonus Task: Add New Book 
 Create functionality in the client UI to add a new book to the data store and update the API to save a new book detail item. 
 
-**Added a component to add books to the DB which has all the fields and also added a delete button to the edit page to include hte delete functionality.
+***Added a component to add books to the DB which has all the fields and also added a delete button to the edit page to include hte delete functionality.
 
 Added some test cases to confirm that the REST API calls are going through. I would have added more functionality and made it more streamlined if I had a bit more time with the project.
 
@@ -44,7 +44,7 @@ Please switch to the master branch after cloning the repo.
 
 https://github.com/generic-widget-factory/TechLibraryExercise/tree/master
 
-**
+***
 
 ### Considerations
 This development exercise is intended to be a ~ 4-hour exercise (+/-).  Even though the current scope does not represent an enterprise application, please approach your application design with supporting such a production application in mind. 
