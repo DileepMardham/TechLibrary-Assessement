@@ -32,13 +32,22 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
+    <Content Include="src\components\AddBook.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\Book.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="src\http-common.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\routes.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\services\BooksDataService.js">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -48,6 +57,7 @@
     <Folder Include="src\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.config.js" />

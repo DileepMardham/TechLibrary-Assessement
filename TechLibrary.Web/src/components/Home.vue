@@ -1,20 +1,68 @@
 <template>
     <div class="home">
         <h1>{{ msg }}</h1>
+        <h1 align="center">Technology Library</h1>
 
-        <b-table striped hover :items="dataContext" :fields="fields" responsive="sm">
-            <template v-slot:cell(thumbnailUrl)="data">
-                <b-img :src="data.value" thumbnail fluid></b-img>
-            </template>
-            <template v-slot:cell(title_link)="data">
-                <b-link :to="{ name: 'book_view', params: { 'id' : data.item.bookId } }">{{ data.item.title }}</b-link>
-            </template>
-        </b-table>
+        <div class="list row">
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Search by title"
+                           v-model="searchTerms" 
+                           v-on:keyup.enter="onEnter"/>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary"
+                                type="button"
+                                @click="currentPage = 1; searchBooks();">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">               
+                <b-pagination v-model="currentPage"
+                              :total-rows="count"
+                              :per-page="pageSize"
+                              prev-text="Prev"
+                              next-text="Next"
+                              @change="handlePageChange"
+                              size="lg"></b-pagination>
+            </div>
+           
+            <div class="col-lg-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>ISBN</th>                            
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="book in books" :key="book.bookId" v-bind:class="{selected: book.bookId == currentIndex}">
+                            <td>
+                                <b-link :to="{ name: 'Book', params: { 'id' : book.bookId } }">{{ book.title }}</b-link>
+                            </td>
+                            <td>{{book.isbn}}</td>
+                            <td>{{book.descr}}</td>
+                            <td align="center">
+                            <img v-bind:src="`${book.thumbnailUrl}`">
+                            <br />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
+    //import axios from 'axios';
+    import booksDataService from "../services/BooksDataService";
 
     export default {
         name: 'Home',
@@ -29,18 +77,81 @@
                 { key: 'descr', label: 'Description', sortable: true, sortDirection: 'desc' }
 
             ],
-            items: []
+            books: [],
+            perPage: 3,
+            currentPage: 1,
+            currentBook: null,
+            currentIndex: -1,
+            searchTerms: "",
+            pageSize: 10,
+            count:0
         }),
-        
-        methods: {
-            dataContext(ctx, callback) {
-                axios.get("https://localhost:5001/books")
-                    .then(response => {
-                        
-                        callback(response.data);
+        methods: {           
+            getRequestParams(searchTerms, currentPage, pageSize) {
+                let params = {};
+
+                if (searchTerms) {
+                    params["searchTerms"] = searchTerms;
+                }
+
+                if (currentPage) {
+                    params["pageNumber"] = currentPage;
+                }
+
+                if (pageSize) {
+                    params["pageSize"] = pageSize;
+                }
+
+                return params;
+            },
+            retrieveBooks() {
+                const params = this.getRequestParams(
+                    this.searchTerms,
+                    this.currentPage,
+                    this.pageSize
+                );
+
+                booksDataService.getAll(params)
+                    .then((response) => {
+                        const books = response.data;
+                        this.books = books.data;
+                        this.count = books.count;
+                        console.log(response.data);
+                    })
+                    .catch((e) => {
+                        console.log(e);
                     });
+            },
+            searchBooks() {
+                const params = this.getRequestParams(
+                    this.searchTerms,
+                    this.currentPage,
+                    this.pageSize
+                );
+
+                booksDataService.searchBooks(params)
+                    .then((response) => {
+                        const books = response.data;
+                        this.books = books.data;
+                        this.count = books.count;
+                        console.log(response.data);
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                    });
+            },
+            handlePageChange(value) {
+                this.currentPage = value;
+                this.retrieveBooks();
+            },
+            onEnter: function () {
+                this.currentPage = 1;
+                this.retrieveBooks();
             }
-        }
+        },
+        mounted: function(){
+            this.retrieveBooks();
+        },
     };
 </script>
 
