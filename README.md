@@ -36,11 +36,11 @@ Create functionality in the client UI to add a new book to the data store and up
 
 ***Added a component to add books to the DB which has all the fields and also added a delete button to the edit page to include hte delete functionality.
 
-Added some test cases to confirm that the REST API calls are going through. I would have added more functionality and made it more streamlined if I had a bit more time with the project.
+Added some test cases to confirm that the REST API calls are going through. I would have added more functionality and made it more streamlined if I had a bit more time with the project. ***
 
 #### Instructions
 
-Please switch to the master branch after cloning the repo.
+***Please switch to the master branch after cloning the repo.
 
 https://github.com/generic-widget-factory/TechLibraryExercise/tree/master
 
